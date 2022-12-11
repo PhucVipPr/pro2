@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 class AdminController extends Controller
 {
 
-    public function __construc(){
+    public function __construct(){
         $this->middleware('is_admin');
     }
     //
@@ -16,6 +16,13 @@ class AdminController extends Controller
     }
 
     function viewProduct(){
-        return view('admin/product/index');
+        $product = Product::all();
+        dd($product);
+        return view('admin/product/index',['product'=>$product]);
+    }
+
+    function show($id){
+        $product = Product::findById($id);
+        return view('admin/product/index',['product'=>$product]);
     }
 }
